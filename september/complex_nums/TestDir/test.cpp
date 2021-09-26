@@ -1,5 +1,3 @@
-#define test 1	
-#include <cstddef>
 //test +
 bool test1() {
   compl_num rhs {4.1, 5.2};
@@ -17,8 +15,8 @@ bool test2() {
   srand(time(NULL));
 
   compl_num rhs{0.0, 0.0};
-  compl_num lhs;
-  compl_num res;
+  compl_num lhs{0.0, 0.0};
+  compl_num res{0.0, 0.0};
 
   for (int i = 0; i < 1000; ++i) {
     lhs.re = rand()%1000 + 1 + (rand()% 1) / 10;

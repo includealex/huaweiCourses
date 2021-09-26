@@ -1,4 +1,3 @@
-#include "./../cmpl.cpp"
 #define test 1	
 
 //test +

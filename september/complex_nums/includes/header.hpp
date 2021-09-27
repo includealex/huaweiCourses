@@ -1,3 +1,6 @@
+#ifndef HEADER_HPP
+#define HEADER_HPP
+
 struct compl_num {
   float re;
   float im;
@@ -33,3 +36,5 @@ struct compl_num {
 
 float myabs(const compl_num &rhs);
 compl_num operator*(const float num, const compl_num &rhs);
+
+#endif

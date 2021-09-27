@@ -1,7 +1,6 @@
 #include <iostream>
-
-#define test 1
-#ifdef test 
+#include "source/funcs.cpp"
+#include "TestDir/test.cpp"
 
 int main() {
   if (test1() == true || test2() == false || test3() == true) {
@@ -11,4 +10,4 @@ int main() {
   return 0;
 }
 
-#endif
+

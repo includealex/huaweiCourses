@@ -1,3 +1,6 @@
+#include "../includes/header.hpp"
+#include <cmath>
+
 compl_num::compl_num(float new_re, float new_im) : re(new_re), im(new_im) {} //initialisation list
 compl_num::compl_num(const compl_num& other) : re(other.re), im(other.im) {}
 

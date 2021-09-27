@@ -21,7 +21,7 @@ struct compl_num {
   compl_num operator-(const compl_num &other) const;
   compl_num operator*(const compl_num &other) const;
   compl_num operator/(const compl_num &other) const;
-
+// 9 tests
   compl_num& operator+=(const compl_num &other);
   compl_num& operator-=(const compl_num &other);
   compl_num& operator*=(const compl_num &other);

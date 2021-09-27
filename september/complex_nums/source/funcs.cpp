@@ -58,15 +58,19 @@ compl_num& compl_num::operator-=(const compl_num& other) {
 }
 
 compl_num& compl_num::operator*=(const compl_num& other) {
-  re = re * other.re - im * other.im;
-  im = re * other.im + im * other.re;
+  float x = re;
+  float y = im;
+  re = x * other.re - y * other.im;
+  im = x * other.im + y * other.re;
 
   return *this;
 }
 
 compl_num& compl_num::operator/=(const compl_num& other) {
-  re = (re * other.re + im * other.im) / (im * im + other.im * other.im);
-  im = (im * other.re - re * other.im) / (im * im + other.im * other.im);
+  float x = re;
+  float y = im;
+  re = (x * other.re + y * other.im) / (y * y + other.im * other.im);
+  im = (y * other.re - x * other.im) / (y * y + other.im * other.im);
 
   return *this;
 }
@@ -107,14 +111,14 @@ compl_num operator*(const float num, compl_num &rhs) {
 }
 
 bool compl_num::operator==(const compl_num &other) const {
-  if (re == other.re && im == other.im)
+  if (abs(re - other.re) < 1e-6 && abs(im - other.im) < 1e-6)
     return true;
 
   return false;  
 }
 
 bool compl_num::operator!=(const compl_num &other) const {
-  if (re != other.re || im != other.im)
+  if (abs(re - other.re) > 1e-6 || abs(im - other.im) > 1e-6)
     return true;
 
   return false;  

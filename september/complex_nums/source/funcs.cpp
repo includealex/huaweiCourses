@@ -4,7 +4,7 @@
 compl_num::compl_num(float new_re, float new_im) : re(new_re), im(new_im) {} //initialisation list
 compl_num::compl_num(const compl_num& other) : re(other.re), im(other.im) {}
 
-float compl_num::myabs() const {
+float compl_num::abs() const {
   return sqrt(re * re + im * im);
 }
 
@@ -33,6 +33,20 @@ compl_num& compl_num::operator=(const compl_num& other) {
     re = other.re;
     im = other.im;
   }
+
+  return *this;
+}
+
+compl_num& compl_num::operator-() {
+  re *= -1;
+  im *= -1;
+
+  return *this;
+}
+
+compl_num& compl_num::operator*(const float num) {
+  re *= num;
+  im *= num;
 
   return *this;
 }

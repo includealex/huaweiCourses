@@ -37,6 +37,34 @@ compl_num& compl_num::operator=(const compl_num& other) {
   return *this;
 }
 
+compl_num& compl_num::operator+=(const compl_num& other) {
+  re += other.re;
+  im += other.im;
+
+  return *this;
+}
+
+compl_num& compl_num::operator-=(const compl_num& other) {
+  re -= other.re;
+  im -= other.im;
+
+  return *this;
+}
+
+compl_num& compl_num::operator*=(const compl_num& other) {
+  re = re * other.re - im * other.im;
+  im = re * other.im + im * other.re;
+
+  return *this;
+}
+
+compl_num& compl_num::operator/=(const compl_num& other) {
+  re = (re * other.re + im * other.im) / (im * im + other.im * other.im);
+  im = (im * other.re - re * other.im) / (im * im + other.im * other.im);
+
+  return *this;
+}
+
 compl_num& compl_num::operator-() {
   re *= -1;
   im *= -1;
@@ -44,9 +72,50 @@ compl_num& compl_num::operator-() {
   return *this;
 }
 
-compl_num& compl_num::operator*(const float num) {
+compl_num compl_num::operator+(const float num) {
+  re += num;
+
+  return *this;
+}
+
+compl_num compl_num::operator-(const float num) {
+  re -= num;
+
+  return *this;
+}
+
+compl_num compl_num::operator*(const float num) {
   re *= num;
   im *= num;
 
   return *this;
+}
+
+compl_num compl_num::operator/(const float num) {
+  re /= num;
+  im /= num;
+
+  return *this;
+}
+
+
+compl_num operator*(const float num, compl_num &rhs) {
+  rhs.re *= num;
+  rhs.im *= num;
+
+  return rhs;
+}
+
+bool compl_num::operator==(const compl_num &other) const {
+  if (re == other.re && im == other.im)
+    return true;
+
+  return false;  
+}
+
+bool compl_num::operator!=(const compl_num &other) const {
+  if (re != other.re || im != other.im)
+    return true;
+
+  return false;  
 }

@@ -4,9 +4,15 @@
 compl_num::compl_num(float new_re, float new_im) : re(new_re), im(new_im) {} //initialisation list
 compl_num::compl_num(const compl_num& other) : re(other.re), im(other.im) {}
 
-float compl_num::abs() const {
+float myabs(const compl_num &rhs) {
+  return sqrt(rhs.re * rhs.re + rhs.im * rhs.im);
+}
+
+/*
+float compl_num::myabs() {
   return sqrt(re * re + im * im);
 }
+*/
 
 compl_num compl_num::operator+(const compl_num& other) const {
   compl_num res{re + other.re, im + other.im};
@@ -72,30 +78,24 @@ compl_num& compl_num::operator-() {
   return *this;
 }
 
-compl_num compl_num::operator+(const float num) {
-  re += num;
-
-  return *this;
+compl_num compl_num::operator+(const float num) const{
+  compl_num res{re + num, im};
+  return res;
 }
 
-compl_num compl_num::operator-(const float num) {
-  re -= num;
-
-  return *this;
+compl_num compl_num::operator-(const float num) const{
+  compl_num res{re - num, im};
+  return res;
 }
 
-compl_num compl_num::operator*(const float num) {
-  re *= num;
-  im *= num;
-
-  return *this;
+compl_num compl_num::operator*(const float num) const {
+  compl_num res{re * num, im * num};
+  return res;
 }
 
-compl_num compl_num::operator/(const float num) {
-  re /= num;
-  im /= num;
-
-  return *this;
+compl_num compl_num::operator/(const float num) const{
+  compl_num res{re / num, im / num};
+  return res;
 }
 
 

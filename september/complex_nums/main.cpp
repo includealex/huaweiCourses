@@ -3,9 +3,11 @@
 #include "TestDir/test.cpp"
 
 int main() {
-  if (test1() == true || test2() == false || test3() == true) {
-    std::cout << "Tests are incorrect" << std::endl;
-  }
+  test1();
+  test2();
+  test3();
+  test4();
+  test5();
 
   return 0;
 }

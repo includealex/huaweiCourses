@@ -1,4 +1,3 @@
-#include <iostream>
 #include "source/funcs.cpp"
 #include "TestDir/test.cpp"
 

@@ -1,5 +1,5 @@
-#ifndef complex_nums_includes_header
-#define complex_nums_includes_header
+#ifndef COMPLEX_NUMS_INCLUDES_HEADER
+#define COMPLEX_NUMS_INCLUDES_HEADER
 
 struct compl_num {
   float re;

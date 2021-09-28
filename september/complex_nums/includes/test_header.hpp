@@ -1,5 +1,5 @@
-#ifndef TEST_HPP
-#define TEST_HPP
+#ifndef complex_nums_includes_test_header
+#define complex_nums_includes_test_header
 
 bool test1();
 bool test2();

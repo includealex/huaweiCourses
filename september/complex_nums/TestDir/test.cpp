@@ -59,7 +59,7 @@ bool test3 () {
 
 bool test4() {
   compl_num rhs{4.0, 3.0};
-  float x = myabs(rhs);
+  float x = rhs.myabs();
 
   if(abs(x - 5.0) > prec) {
     std::cout << "test4 has failed" << std::endl;

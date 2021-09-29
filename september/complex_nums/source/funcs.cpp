@@ -70,11 +70,10 @@ compl_num& compl_num::operator/=(const compl_num& other) {
   return *this;
 }
 
-compl_num& compl_num::operator-() {
-  re *= -1;
-  im *= -1;
+compl_num compl_num::operator-() {
+  compl_num res {-re, -im};
 
-  return *this;
+  return res;
 }
 
 compl_num compl_num::operator+(const float num) const{

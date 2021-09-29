@@ -12,7 +12,7 @@ struct compl_num {
 
   float myabs() const;
 
-  compl_num& operator-();
+  compl_num operator-();
   compl_num& operator=(const compl_num &other);
 
   compl_num operator+(const float num) const;

@@ -1,26 +1,34 @@
-#ifndef STACK_INCLUDES_HEADERS_HPP
-#define STACK_INCLUDES_HEADERS_HPP
+#ifndef STACK_INCLUDES_HEADERS_H_
+#define STACK_INCLUDES_HEADERS_H_
 
-struct Stack {
-  Stack();
-  Stack(Stack const & other);
-  ~Stack();
+template<typename T>
+class Stack {
 
-  bool is_empty() const;
-  void push(int data);
-  int pop;
-  int size() const;
-  int & top();
+public:
+    Stack();
+    Stack(const Stack& another);
+    Stack(Stack&& another);
+    ~Stack();
+    
+    bool is_empty() const;
+    int size() const;
+    T top() const;
+    T pop();
+    void push(T el);
+    void swap(Stack& another);
 
-  Stack & operator = (Stack const & other);
-  bool operator == (Stack const & other) const;
-  bool operator != (Stack const & other) const;
+    bool operator== (const Stack& another) const;
+    bool operator!= (const Stack& another) const;
+    Stack& operator= (const Stack& another);
+    Stack& operator= (Stack&& another);
 
-  const int START_STACK_SIZE_ = 50;//That thing should be changed!!!
+private:
+    const int START_STACK_SIZE = 32;
+    T* data_;
+    int size_;
+    int counter_;
+    void stack_realloc();
 
-  int *data;
-  int size_;
-  int counter_;
 };
 
-#endif
+#endif //STACK_INCLUDES_HEADERS_H_

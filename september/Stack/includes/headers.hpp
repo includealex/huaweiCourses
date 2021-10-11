@@ -1,26 +1,27 @@
 #ifndef STACK_INCLUDES_HEADERS_H_
 #define STACK_INCLUDES_HEADERS_H_
 
-template<typename T>
+template<class T>
 class Stack {
 
 public:
     Stack();
-    Stack(const Stack& another);
-    Stack(Stack&& another);
+    Stack(const Stack& other);
+    Stack(Stack&& other);
     ~Stack();
-    
-    bool is_empty() const;
-    int size() const;
-    T top() const;
-    T pop();
-    void push(T el);
-    void swap(Stack& another);
 
-    bool operator== (const Stack& another) const;
-    bool operator!= (const Stack& another) const;
-    Stack& operator= (const Stack& another);
-    Stack& operator= (Stack&& another);
+    int size() const;
+    T pop();
+
+    void push(T rhs);
+    void swap(Stack& other);
+
+    bool is_empty() const;
+    bool operator== (const Stack& other) const;
+    bool operator!= (const Stack& other) const;
+
+    Stack& operator= (const Stack& other);
+    Stack& operator= (Stack&& other);
 
 private:
     const int START_STACK_SIZE = 32;
@@ -28,7 +29,6 @@ private:
     int size_;
     int counter_;
     void stack_realloc();
-
 };
 
 #endif //STACK_INCLUDES_HEADERS_H_

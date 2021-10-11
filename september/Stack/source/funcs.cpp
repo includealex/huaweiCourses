@@ -1,58 +1,114 @@
-#include <utility>
 #include <algorithm>
 
 #include "../includes/headers.hpp"
 
-template<typename T>
+template<class T>
 Stack<T>::Stack() : data_(new T[START_STACK_SIZE]),
                     size_(START_STACK_SIZE),
                     counter_(0) {}
 
-template<typename T>
-Stack<T>::Stack(const Stack<T>& another) {
-    data_ = new T[another.size_];
-    size_ = another.size_;
-    counter_ = another.counter_;
-    std::copy(another.data_,
-              another.data_ + another.size_,
+template<class T>
+Stack<T>::Stack(const Stack<T>& other) {
+    data_ = new T[other.size_];
+    size_ = other.size_;
+    counter_ = other.counter_;
+    std::copy(other.data_,
+              other.data_ + other.size_,
               data_);
 }
 
-template<typename T>
-Stack<T>::Stack(Stack&& another) : data_(another.data_), 
-                                   size_(another.size_),
-                                   counter_(another.counter_)    
+template<class T>
+Stack<T>::Stack(Stack&& other) : data_(other.data_), 
+                                 size_(other.size_),
+                                 counter_(other.counter_)    
 {
-    another.data_ = nullptr;
-    another.size_ = another.counter_ = 0;
+    other.data_ = nullptr;
+    other.size_ = other.counter_ = 0;
 }
 
-template<typename T>
+template<class T>
 Stack<T>::~Stack() {
     delete [] data_;
 }
 
-template<typename T>
-bool Stack<T>::is_empty() const {
-    return counter_ == 0 ? true : false;
-}
-
-template<typename T>
+template<class T>
 int Stack<T>::size() const {
     return counter_;
 }
 
-template<typename T>
-T Stack<T>::top() const {
-    return data_[counter_ - 1];
-}
 
-template<typename T>
+template<class T>
 T Stack<T>::pop() {
     return data_[--counter_];
 }
 
-template<typename T>
+template<class T>
+void Stack<T>::push(T rhs) {
+    if (counter_ == size_) {
+        stack_realloc();
+    }
+    data_[counter_++] = rhs;
+}
+
+template<class T>
+void Stack<T>::swap(Stack& other) {
+    Stack tmp = std::move(*this);
+    *this = std::move(other);
+    other = std::move(tmp);
+}
+
+template<class T>
+bool Stack<T>::is_empty() const {
+    return counter_ == 0 ? true : false;
+}
+
+template<class T>
+bool Stack<T>::operator== (const Stack<T>& other) const {
+    if (counter_ != other.counter_)
+        return false;
+
+    for (int i = 0; i < counter_; ++i) {
+        if (data_[i] != other.data_[i])
+            return false;
+    }
+
+    return true;
+}
+
+template<class T>
+bool Stack<T>::operator!= (const Stack<T>& other) const {
+    return !(*this == other);
+}
+
+template<class T>
+Stack<T>& Stack<T>::operator= (const Stack<T>& other) {
+    if (this == &other){
+        return *this;
+    }
+    delete [] data_;
+    size_ = other.size_;
+    counter_ = other.counter_;
+    data_ = new T[size_];
+    std::copy(other.data_, other.data_ + size_, data_);
+    return *this;
+}
+
+template<class T>
+Stack<T>& Stack<T>::operator= (Stack<T>&& other) {
+    if (this != &other) {
+      delete [] data_;
+
+      size_ = other.size_;
+      counter_ = other.counter_;
+      data_ = other.data_;
+      other.data_ = nullptr;
+      other.size_ = other.counter_ = 0;
+    }
+
+    return *this;
+}
+
+template<class T>
 void Stack<T>::stack_realloc() {
     T* tmp = data_;
     data_ = new T[size_ * 2];
@@ -60,63 +116,6 @@ void Stack<T>::stack_realloc() {
     size_ *= 2;
 }
 
-template<typename T>
-void Stack<T>::push(T el) {
-    if (counter_ == size_) {
-        stack_realloc();
-    }
-    data_[counter_++] = el;
-}
-
-template<typename T>
-void Stack<T>::swap(Stack& another) {
-    Stack tmp = std::move(*this);
-    *this = std::move(another);
-    another = std::move(tmp);
-}
-
-template<typename T>
-bool Stack<T>::operator== (const Stack<T>& another) const {
-    if (counter_ != another.counter_)
-        return false;
-    for (int i = 0; i < counter_; ++i) {
-        if (data_[i] != another.data_[i])
-            return false;
-    }
-    return true;
-}
-
-template<typename T>
-bool Stack<T>::operator!= (const Stack<T>& another) const {
-    return !(*this == another);
-}
-
-template<typename T>
-Stack<T>& Stack<T>::operator= (const Stack<T>& another) {
-    if (this == &another){
-        return *this;
-    }
-    delete [] data_;
-    size_ = another.size_;
-    counter_ = another.counter_;
-    data_ = new T[size_];
-    std::copy(another.data_, another.data_ + size_, data_);
-    return *this;
-}
-
-template<typename T>
-Stack<T>& Stack<T>::operator= (Stack<T>&& another) {
-    if (this == &another) {
-        return *this;
-    }
-    delete [] data_;
-    size_ = another.size_;
-    counter_ = another.counter_;
-    data_ = another.data_;
-    another.data_ = nullptr;
-    another.size_ = another.counter_ = 0;
-    return *this;
-}
 
 template class Stack<int>;
 template class Stack<long>;

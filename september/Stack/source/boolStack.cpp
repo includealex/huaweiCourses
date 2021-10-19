@@ -37,6 +37,13 @@ bool Stack<bool>::is_empty() const {
     return counter_ == 0 ? true : false;
 }
 
+bool Stack<bool>::top() const {
+    uint32_t containElem = data_[(counter_-1)  / 8];
+    containElem  = containElem >> ((counter_-1) % 8);
+    containElem &= 1;
+    return containElem;
+}
+
 bool Stack<bool>::pop() {
     uint32_t lhs =  data_[(--counter_) / 8];
     lhs = lhs >> (size_ % 8);

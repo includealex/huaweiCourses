@@ -5,13 +5,22 @@
 
 bool test_top();
 bool test_size();
+bool test_pop();
+bool test_is_empty();
+bool test_equality();
+bool test_swap();
+bool test_btop();
+bool test_bsize();
+bool test_bis_empty();
 bool all_tests();
 
 int main() {
     if(all_tests() != true) {
         std::cout << "Failure" << std::endl;
+        return 1;
     }
 
+    std::cout << "Success" << std::endl;
     return 0;
 }
 
@@ -46,12 +55,132 @@ bool test_size() {
     return true;
 }
 
+bool test_pop() {
+    Stack<uint32_t> s3;
+
+    for(uint32_t i = 0; i < 400; ++i) {
+        s3.push(i);
+    }
+
+    std::vector<uint32_t> v = {399, 398, 397, 396, 395};
+    std::vector<uint32_t> v3;
+
+    for (int i = 0; i < 5; ++i) {
+        v3.push_back(s3.pop());
+    }
+
+    if(v != v3 && v3.size() != 5) {
+        std::cout << "test_pop has failed" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool test_is_empty() {
+    Stack<uint32_t> s4;
+
+    if(!s4.is_empty()) {
+        std::cout << "test_is_empty has failed" << std::endl;
+        return false;
+    }
+
+    s4.push(1);
+    if(s4.is_empty()){
+        std::cout << "test_is_empty has failed" << std::endl;
+        return false;        
+    }
+
+    return true;
+}
+
+bool test_equality() {
+    Stack<uint32_t> s1;
+    Stack<uint32_t> s2;
+
+    if(!(s1 == s2)) {
+        std::cout << "test_equality has failed" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool test_swap() {
+    Stack<uint32_t> s1, s11, s2, s21;
+
+    for(uint32_t i = 0; i < 10; ++i) {
+        s1.push(i);
+    }
+    s2.push(13);
+
+    s11 = s1;
+    s21 = s2;
+
+    s1.swap(s2);
+
+    if(!(s1 == s21 && s2 == s11)) {
+        std::cout << "test_swap has failed" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool test_btop() {
+    Stack<bool> s1;
+
+    std::vector<bool> v1 = {1, 1, 0, 0, 0, 0, 0, 1, 0};
+
+    for(bool item: v1){
+        s1.push(item);
+    }
+    if(s1.top() != 0) {
+        std::cout << "test_btop has failed" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool test_bsize() {
+    Stack<bool> s1;
+    for (int i = 0; i < 1e4; ++i) {
+        s1.push(i % 2);
+    }
+
+    size_t size = s1.size();
+    if (size != 10009){
+        std::cout << "test_bsize has failed" << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool test_bis_empty() {
+    Stack<bool> s1;
+
+    if(!s1.is_empty()) {
+        std::cout << "test_bis_empty has failed" << std::endl;
+        return false;
+    }
+
+    return true;
+}
 
 bool all_tests() {
     bool result = true;
 
     result = result && test_top();
     result = result && test_size();
+    result = result && test_pop();
+    result = result && test_is_empty();
+    result = result && test_equality();
+    result = result && test_swap();
+    result = result && test_btop();
+    result = result && test_bsize();
+    result = result && test_bis_empty();
 
     return result;
 }

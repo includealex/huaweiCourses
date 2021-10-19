@@ -14,6 +14,8 @@ public:
     ~Stack();
 
     size_t size() const;
+
+    bool top() const;
     bool pop();
 
     void push(bool rhs);

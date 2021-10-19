@@ -1,33 +1,21 @@
 #include <benchmark/benchmark.h>
+#include <iostream>
 
-// Everything should be rewritten!!!
+#include "../includes/Stack.h"
 
 static void stackBench(benchmark::State &addit) {
     int len = addit.range(0);
-    double factor = 1 + len / 10;
-
-    int counter_ = 1;
-    int size_ = 1;
-
 
     for(auto _ : addit) {
-        int* data_ = new int[32];
-        for (int i = 0; i < 1e6; ++i) {
-            if(counter_ = size_) {
-                    int* tmp = data_;
-                    data_ = new int[int(size_ * factor)];
-                    std::copy(tmp, tmp + size_, data_);
-                    size_ = (int)size_ * factor;
-            }
+        Stack <uint32_t> s1;
+        s1.change_factor(len / 10);
 
-            data_[counter_++] = i;
+        for(int i = 0; i < 1e6; ++i) {
+            s1.push(i);
         }
-        delete[] data_;
     }
 
 }
-
-
 
 BENCHMARK(stackBench)->DenseRange(4, 9)->Unit(benchmark::kMillisecond);
 

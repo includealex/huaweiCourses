@@ -1,5 +1,4 @@
 .idea
 cmake-build-debug
 *.out
-CMakeLists.txt
 find_time

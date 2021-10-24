@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "includes/Stack.h"
+#include "includes/Stack_impl.h"
 
 bool test_top();
 bool test_size();

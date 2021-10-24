@@ -4,7 +4,6 @@
 template<class T>
 class Stack {
 public:
-    double factor = 2;
     size_t START_STACK_SIZE = 32;
 
     Stack();
@@ -14,7 +13,7 @@ public:
 
     size_t size() const;
 
-    T& top() const;
+    const T& top() const;
     T pop();
 
     void push(T rhs);
@@ -27,14 +26,21 @@ public:
     Stack& operator= (const Stack& other);
     Stack& operator= (Stack&& other);
 
-    void change_factor(double lhs);
+    template<class U>
+    friend void change_factor(Stack<U> &s, double lhs);
 
 private:
+    double factor = 2;
     T* data_;
     size_t size_;
     size_t counter_;
     void stack_realloc();
 };
+
+template<class U>
+void change_factor(Stack<U> &s, double lhs) {
+    s.factor -= lhs;
+}
 
 template<class T>
 Stack<T>::Stack() : data_(new T[START_STACK_SIZE]),
@@ -71,7 +77,7 @@ size_t Stack<T>::size() const {
 }
 
 template<class T>
-T& Stack<T>::top() const {
+const T& Stack<T>::top() const {
     return data_[counter_ - 1];
 }
 
@@ -155,11 +161,6 @@ Stack<T>& Stack<T>::operator= (Stack<T>&& other) {
 }
 
 template<class T>
-void Stack<T>::change_factor(double lhs) {
-    factor -= lhs;
-}
-
-template<class T>
 void Stack<T>::stack_realloc() {
     T* tmp = data_;
     uint32_t newSize = (uint32_t) size_ * factor;
@@ -167,6 +168,5 @@ void Stack<T>::stack_realloc() {
     std::copy(tmp, tmp + size_, data_);
     size_ *= factor;
 }
-
 
 #endif //STACK_INCLUDES_STACK_IMPL_H_

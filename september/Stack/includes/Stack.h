@@ -16,8 +16,8 @@ public:
     size_t size() const;
 
     bool top() const;
-    void pop();
 
+    void pop();
     void push(bool rhs);
     void swap(Stack<bool>& other);
 
@@ -32,6 +32,7 @@ private:
     uint32_t* data_;
     size_t size_;
     size_t counter_;
+    void stack_realloc();
 };
 
 #endif //STACK_INCLUDES_STACK_H_

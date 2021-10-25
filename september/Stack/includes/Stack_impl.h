@@ -14,8 +14,8 @@ public:
     size_t size() const;
 
     const T& top() const;
-    T pop();
 
+    void pop();
     void push(T rhs);
     void swap(Stack& other);
 
@@ -82,14 +82,13 @@ const T& Stack<T>::top() const {
 }
 
 template<class T>
-T Stack<T>::pop() {
+void Stack<T>::pop() {
     if(counter_ == 0) {
         std::cout << "Trying to work with non-allocated memory" << std::endl;
         exit(1);
     }
 
     counter_--;
-    return data_[counter_];
 }
 
 template<class T>
@@ -163,6 +162,7 @@ Stack<T>& Stack<T>::operator= (Stack<T>&& other) {
 template<class T>
 void Stack<T>::stack_realloc() {
     T* tmp = data_;
+    delete[] data_;
     uint32_t newSize = (uint32_t) size_ * factor;
     data_ = new T[newSize];
     std::copy(tmp, tmp + size_, data_);

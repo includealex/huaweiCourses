@@ -63,14 +63,12 @@ bool test_pop() {
         s3.push(i);
     }
 
-    std::vector<uint32_t> v = {399, 398, 397, 396, 395};
-    std::vector<uint32_t> v3;
-
-    for (int i = 0; i < 5; ++i) {
-        v3.push_back(s3.pop());
+    for (uint32_t i = 0; i < 250; ++i) {
+        s3.pop();
     }
 
-    if(v != v3 && v3.size() != 5) {
+    if(s3.size() != 150) {
+        std::cout << s3.size() << std::endl;
         std::cout << "test_pop has failed" << std::endl;
         return false;
     }
@@ -131,12 +129,14 @@ bool test_swap() {
 bool test_btop() {
     Stack<bool> s1;
 
-    std::vector<bool> v1 = {1, 1, 0, 0, 0, 0, 0, 1, 0};
+    std::vector<bool> v1 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
 
     for(bool item: v1){
         s1.push(item);
     }
-    if(s1.top() != 0) {
+
+    if(s1.top() != 1) {
+        std::cout << s1.top();
         std::cout << "test_btop has failed" << std::endl;
         return false;
     }
@@ -146,12 +146,12 @@ bool test_btop() {
 
 bool test_bsize() {
     Stack<bool> s1;
+
     for (int i = 0; i < 1e4; ++i) {
         s1.push(i % 2);
     }
 
-    size_t size = s1.size();
-    if (size != 10009){
+    if(s1.size() != 10057) {
         std::cout << "test_bsize has failed" << std::endl;
         return false;
     }

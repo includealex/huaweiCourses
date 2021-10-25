@@ -16,7 +16,7 @@ public:
     size_t size() const;
 
     bool top() const;
-    bool pop();
+    void pop();
 
     void push(bool rhs);
     void swap(Stack<bool>& other);

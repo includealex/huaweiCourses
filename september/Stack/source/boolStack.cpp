@@ -38,28 +38,26 @@ bool Stack<bool>::is_empty() const {
 }
 
 bool Stack<bool>::top() const {
-    uint32_t containElem = data_[(counter_-1)  / 8];
-    containElem  = containElem >> ((counter_-1) % 8);
+    uint32_t containElem = data_[(counter_ - 1)  / 8];
+    containElem  = containElem >> ((counter_ - 1) % 8);
     containElem &= 1;
     return containElem;
 }
 
-bool Stack<bool>::pop() {
+void Stack<bool>::pop() {
     uint32_t lhs =  data_[(--counter_) / 8];
     lhs = lhs >> (size_ % 8);
     lhs &= 1;
-
-    return lhs;
 }
 
 void Stack<bool>::push(bool rhs) {
     if (counter_ == size_) {
-        uint32_t* arr  = new uint32_t [2 * ((counter_ + 7) / 8)];
-        std::copy(data_, data_ + (size_ + 7) / 8, arr);
+        uint32_t* arr  = new uint32_t [2 * ((counter_ + 31) / 8)];
+        std::copy(data_, data_ + (size_ + 31) / 8, arr);
         delete[] data_;
 
         data_ = arr;
-        counter_ = 2 * ((counter_ + 7) / 8) * 8;
+        counter_ = 2 * ((counter_ + 31) / 8) * 8;
     }
 
     int i = size_ % 8;
@@ -108,7 +106,7 @@ Stack<bool>& Stack<bool>::operator= (const Stack<bool>& other) {
 
       size_ = other.size_;
       counter_ = other.counter_;
-      data_ = new uint32_t [(size_ + 7) / 8];
+      data_ = new uint32_t [(size_ + 31) / 8];
 
     }
 

@@ -1,6 +1,6 @@
-#include <utility>
 #include <cstddef>
 #include <iostream>
+#include <utility>
 
 #include "../includes/Stack.h"
 
@@ -38,8 +38,8 @@ bool Stack<bool>::is_empty() const {
 }
 
 bool Stack<bool>::top() const {
-    uint32_t containElem = data_[(counter_ - 1)  / 8];
-    containElem  = containElem >> ((counter_ - 1) % 8);
+    uint32_t containElem = data_[size_ - (counter_ / 32)];
+    containElem  = containElem >> ((counter_ - 1) % 32);
     containElem &= 1;
     return containElem;
 }
@@ -139,7 +139,7 @@ Stack<bool>& Stack<bool>::operator= (Stack<bool>&& other) {
 
 void Stack<bool>::stack_realloc() {
     uint32_t* tmp = data_;
-    delete[] data_;
+//    delete[] data_;
     uint32_t newSize = (uint32_t) size_ * 2;
     data_ = new uint32_t[newSize];
     std::copy(tmp, tmp + size_, data_);

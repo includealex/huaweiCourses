@@ -10,7 +10,7 @@ public:
 
     Stack();
     Stack(const Stack& other);
-    Stack(Stack&& other);
+    Stack(Stack&& other) noexcept;
     ~Stack();
 
     size_t size() const;
@@ -26,7 +26,7 @@ public:
     bool operator!= (const Stack<bool>& other) const;
 
     Stack& operator= (const Stack& other);
-    Stack& operator= (Stack&& other);
+    Stack& operator= (Stack&& other) noexcept;
 
 private:
     uint32_t* data_;

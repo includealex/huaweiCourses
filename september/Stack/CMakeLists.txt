@@ -1,10 +1,21 @@
 cmake_minimum_required(VERSION 3.16.3)
-project(Google_tests)
+project(Stack)
 
-set(CMAKE_CXX_STANDARD 14)
+file(GLOB_RECURSE ALL_CXX_SOURCE_FILES *.cpp *.h)
 
-add_subdirectory(lib)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+find_program(CLANG_FORMAT "clang-format" REQUIRED)
+add_custom_target(
+    format
+    COMMAND clang-format-12
+    -i
+    -style=file
+    ${ALL_CXX_SOURCE_FILES}
+)
 
-add_executable(Google_Tests_run test.cpp Bool_Stack.cpp)
-target_link_libraries(Google_Tests_run gtest gtest_main)
+set(CMAKE_CXX_CLANG_TIDY
+    clang-tidy;
+    --format-style=file;
+    --header-filter=*.h;
+)
+
+add_subdirectory(Stack)

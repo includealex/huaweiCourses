@@ -156,7 +156,7 @@ template <class T>
 void Stack<T>::stack_realloc() {
   T* tmp = data_;
   delete[] data_;
-  uint32_t newSize = (uint32_t)size_ * factor;
+  auto newSize = static_cast<uint32_t>(size_ * factor);
   data_ = new T[newSize];
   std::copy(tmp, tmp + size_, data_);
   size_ *= factor;

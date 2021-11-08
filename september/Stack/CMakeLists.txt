@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.3)
+cmake_minimum_required(VERSION 3.9)
 project(Stack)
 
 file(GLOB_RECURSE ALL_CXX_SOURCE_FILES *.cpp *.h)

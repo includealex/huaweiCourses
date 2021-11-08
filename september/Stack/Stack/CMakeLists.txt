@@ -1,13 +1,15 @@
-cmake_minimum_required(VERSION 3.16.3)
-project(StackLib VERSION 1.0.0 DESCRIPTION "Stack lib")
+cmake_minimum_required(VERSION 3.9)
+project(StackLib VERSION 1.0.0 DESCRIPTION "Stack library")
 
 add_subdirectory(test)
 
 file(GLOB_RECURSE STACK_SOURCES *.cpp)
 file(GLOB_RECURSE STACK_HEADERS *.h)
 
-add_library(stack SHARED ${STACK_SOURCES} ${STACK_HEADERS})
-target_include_directories(stack PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+add_library(stack STATIC ${STACK_SOURCES} ${STACK_HEADERS})
+
+set(STACK_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(stack PUBLIC ${STACK_INCLUDE})
 
 set_target_properties(stack PROPERTIES
     CXX_STANDARD          11

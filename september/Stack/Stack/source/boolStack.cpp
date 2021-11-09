@@ -131,9 +131,9 @@ Stack<bool>& Stack<bool>::operator=(Stack<bool>&& other) noexcept {
 
 void Stack<bool>::stack_realloc() {
   uint32_t* tmp = data_;
-  delete[] data_;
   auto new_size = static_cast<uint32_t>(size_ * 2);
   data_ = new uint32_t[new_size];
   std::copy(tmp, tmp + size_, data_);
   size_ *= 2;
+  delete[] tmp;
 }

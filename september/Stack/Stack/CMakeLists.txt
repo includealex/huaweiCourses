@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.9)
 project(StackLib VERSION 1.0.0 DESCRIPTION "Stack library")
 
 add_subdirectory(test)
+add_subdirectory(timeResearch)
 
 file(GLOB_RECURSE STACK_SOURCES *.cpp)
 file(GLOB_RECURSE STACK_HEADERS *.h)

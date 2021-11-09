@@ -155,10 +155,10 @@ Stack<T>& Stack<T>::operator=(Stack<T>&& other) {
 template <class T>
 void Stack<T>::stack_realloc() {
   T* tmp = data_;
-  delete[] data_;
   auto newSize = static_cast<uint32_t>(static_cast<double>(size_) * factor);
   data_ = new T[newSize];
   std::copy(tmp, tmp + size_, data_);
+  delete[] tmp;
   size_ = static_cast<size_t>(static_cast<double>(size_) * factor);
 }
 

@@ -3,6 +3,7 @@
 #include <utility>
 
 #include "../includes/Stack.h"
+#include "../includes/Stack_impl.h"
 
 Stack<bool>::Stack()
     : data_(new uint32_t[START_STACK_SIZE]), size_(START_STACK_SIZE), counter_(0) {}
@@ -36,7 +37,8 @@ bool Stack<bool>::top() const {
   auto num_of_bit = counter_ % 32 - 1;
   auto num_of_byte = counter_ / 32;
 
-  bool elem = static_cast<bool>((data_[num_of_byte] & ((static_cast<unsigned int>(1)) << num_of_bit)) >> num_of_bit);
+  bool elem = static_cast<bool>(
+      (data_[num_of_byte] & ((static_cast<unsigned int>(1)) << num_of_bit)) >> num_of_bit);
 
   return elem;
 }
@@ -88,7 +90,8 @@ bool Stack<bool>::operator==(const Stack<bool>& other) const {
   }
 
   for (uint32_t i = 0; i < num_of_bit; ++i) {
-    if ((data_[num_of_byte] & ((static_cast<unsigned int>(1)) << i)) != (other.data_[num_of_byte] & ((static_cast<unsigned int>(1)) << i))) {
+    if ((data_[num_of_byte] & ((static_cast<unsigned int>(1)) << i)) !=
+        (other.data_[num_of_byte] & ((static_cast<unsigned int>(1)) << i))) {
       return false;
     }
   }

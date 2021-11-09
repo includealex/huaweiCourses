@@ -156,10 +156,10 @@ template <class T>
 void Stack<T>::stack_realloc() {
   T* tmp = data_;
   delete[] data_;
-  auto newSize = static_cast<uint32_t>(size_ * factor);
+  auto newSize = static_cast<uint32_t>(static_cast<double>(size_) * factor);
   data_ = new T[newSize];
   std::copy(tmp, tmp + size_, data_);
-  size_ *= factor;
+  size_ = static_cast<size_t>(static_cast<double>(size_) * factor);
 }
 
 #endif  // STACK_INCLUDES_STACK_IMPL_H_

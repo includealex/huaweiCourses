@@ -1,32 +1,31 @@
+#include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
 
-#include <gtest/gtest.h>
+#include "../includes/Stack.h"
+#include "../includes/Stack_impl.h"
 
-#include "includes/Stack.h"
-#include "includes/Stack_impl.h"
-
-TEST(Top) {
+TEST(StackTest, Top) {
   Stack<uint32_t> s1;
 
   for (int i = 0; i < 1001; ++i) {
-    s1.push(i * 2);
+    s1.push(static_cast<uint32_t>(i * 2));
   }
 
   ASSERT_EQ(s1.top(), 2000);
 }
 
-TEST(Size) {
+TEST(StackTest, Size) {
   Stack<uint32_t> s2;
 
   for (int i = 0; i < 1e5; ++i) {
-    s2.push(i * 2);
+    s2.push(static_cast<uint32_t>(i * 2));
   }
 
   ASSERT_EQ(s2.size(), 1e5);
 }
 
-TEST(Pop) {
+TEST(StackTest, Pop) {
   Stack<uint32_t> s3;
 
   for (uint32_t i = 0; i < 400; ++i) {
@@ -40,7 +39,7 @@ TEST(Pop) {
   ASSERT_EQ(s3.size(), 150);
 }
 
-TEST(IsEmpty) {
+TEST(StackTest, IsEmpty) {
   Stack<uint32_t> s4;
 
   ASSERT_TRUE(s4.is_empty());
@@ -50,15 +49,18 @@ TEST(IsEmpty) {
   ASSERT_FALSE(s4.is_empty());
 }
 
-TEST(Equality) {
+TEST(StackTest, Equality) {
   Stack<uint32_t> s1;
   Stack<uint32_t> s2;
 
   ASSERT_TRUE(s1 == s2);
 }
 
-TEST(Swap) {
-  Stack<uint32_t> s1, s11, s2, s21;
+TEST(StackTest, Swap) {
+  Stack<uint32_t> s1;
+  Stack<uint32_t> s11;
+  Stack<uint32_t> s2;
+  Stack<uint32_t> s21;
 
   for (uint32_t i = 0; i < 10; ++i) {
     s1.push(i);
@@ -73,7 +75,7 @@ TEST(Swap) {
   ASSERT_TRUE(s1 == s21 && s2 == s11);
 }
 
-TEST(Btop) {
+TEST(StackTest, Btop) {
   Stack<bool> s1;
 
   std::vector<bool> v1 = {true, false, true, true, true, false, false, false, true, false};
@@ -82,20 +84,23 @@ TEST(Btop) {
     s1.push(item);
   }
 
+  v1.clear();
+
   ASSERT_EQ(s1.top(), false);
 }
 
-TEST(Bsize) {
+TEST(StackTest, Bsize) {
   Stack<bool> s1;
 
   for (int i = 0; i < 1e4; ++i) {
-    s1.push(i % 2);
+    bool elem = static_cast<bool>(i % 2);
+    s1.push(elem);
   }
 
-  ASSERT_EQ(s1.size(), 10000)
+  ASSERT_EQ(s1.size(), 10000);
 }
 
-TEST(BisEmpty) {
+TEST(StackTest, BisEmpty) {
   Stack<bool> s1;
 
   ASSERT_TRUE(s1.is_empty());

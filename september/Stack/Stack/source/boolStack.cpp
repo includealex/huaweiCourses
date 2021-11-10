@@ -34,13 +34,12 @@ bool Stack<bool>::is_empty() const {
 }
 
 bool Stack<bool>::top() const {
-  auto num_of_bit =  counter_ % 32 - 1;
-  auto num_of_byte = counter_ / 32;
+  if(counter_ == 0) {
+    std::cout << "Trying to get data from non-pushed memory"  << std::endl;
+    exit(1);
+  }
 
-  bool elem = static_cast<bool>(
-      (data_[num_of_byte] & ((static_cast<uint32_t>(1)) << num_of_bit)) >> num_of_bit);
-
-  return elem;
+  return static_cast<bool>(data_[(counter_ - (static_cast<uint32_t>(1))) / 32] & ((static_cast<uint32_t>(1)) << ((counter_ - (static_cast<uint32_t>(1))) % 32)));
 }
 
 void Stack<bool>::pop() {

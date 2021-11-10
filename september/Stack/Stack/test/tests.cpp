@@ -29,8 +29,6 @@ TEST(StackTest, BPushandPop) {
     ASSERT_EQ(s1.top(), false);
     s1.push(true);
     ASSERT_EQ(s1.top(), true);
-    s1.push(false);
-    ASSERT_EQ(s1.top(), false);
   }
 }
 

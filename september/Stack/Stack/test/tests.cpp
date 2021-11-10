@@ -30,6 +30,15 @@ TEST(StackTest, BPushandPop) {
     s1.push(true);
     ASSERT_EQ(s1.top(), true);
   }
+
+  for(int i = 0; i < 1e6; ++i) {
+    ASSERT_EQ(s1.top(), true);
+    s1.pop();
+    ASSERT_EQ(s1.top(), false);
+    s1.pop();
+    ASSERT_EQ(s1.top(), true);
+    s1.pop();
+  }
 }
 
 TEST(StackTest, Top) {

@@ -34,11 +34,11 @@ bool Stack<bool>::is_empty() const {
 }
 
 bool Stack<bool>::top() const {
-  auto num_of_bit = counter_ % 32 - 1;
+  auto num_of_bit =  counter_ % 32 - 1;
   auto num_of_byte = counter_ / 32;
 
   bool elem = static_cast<bool>(
-      (data_[num_of_byte] & ((static_cast<unsigned int>(1)) << num_of_bit)) >> num_of_bit);
+      (data_[num_of_byte] & ((static_cast<uint32_t>(1)) << num_of_bit)) >> num_of_bit);
 
   return elem;
 }
@@ -53,18 +53,21 @@ void Stack<bool>::pop() {
 }
 
 void Stack<bool>::push(bool rhs) {
-  if (counter_ == size_) {
+  if (counter_ == size_ * START_STACK_SIZE) {
     stack_realloc();
   }
 
-  uint32_t num_of_bit = counter_ % 32;
+  auto num_of_bit = static_cast<uint32_t>(counter_ % 32);
   auto num_of_byte = static_cast<uint32_t>(counter_ / 32);
 
   if (rhs) {
-    data_[num_of_byte] = ((static_cast<unsigned int>(1)) << num_of_bit);
+    data_[num_of_byte] = ((static_cast<uint32_t>(1)) << num_of_bit);
   } else if (!rhs) {
-    data_[num_of_byte] &= ~((static_cast<unsigned int>(1)) << num_of_bit);
+    data_[num_of_byte] &= ~((static_cast<uint32_t>(1)) << num_of_bit);
   }
+
+//  data_[num_of_byte] &= static_cast<uint32_t>(~(1 << (num_of_bit)));
+//  data_[num_of_byte] ^= static_cast<uint32_t>(static_cast<uint32_t>(rhs) << (num_of_bit));
 
   counter_++;
 }
@@ -90,8 +93,8 @@ bool Stack<bool>::operator==(const Stack<bool>& other) const {
   }
 
   for (uint32_t i = 0; i < num_of_bit; ++i) {
-    if ((data_[num_of_byte] & ((static_cast<unsigned int>(1)) << i)) !=
-        (other.data_[num_of_byte] & ((static_cast<unsigned int>(1)) << i))) {
+    if ((data_[num_of_byte] & ((static_cast<uint32_t>(1)) << i)) !=
+        (other.data_[num_of_byte] & ((static_cast<uint32_t>(1)) << i))) {
       return false;
     }
   }
@@ -131,7 +134,7 @@ Stack<bool>& Stack<bool>::operator=(Stack<bool>&& other) noexcept {
 
 void Stack<bool>::stack_realloc() {
   uint32_t* tmp = data_;
-  auto new_size = static_cast<uint32_t>(size_ * 2);
+  auto new_size = static_cast<size_t>(size_ * 2);
   data_ = new uint32_t[new_size];
   std::copy(tmp, tmp + size_, data_);
   size_ *= 2;

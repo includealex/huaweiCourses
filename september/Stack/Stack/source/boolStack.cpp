@@ -39,7 +39,8 @@ bool Stack<bool>::top() const {
     exit(1);
   }
 
-  return static_cast<bool>(data_[(counter_ - (static_cast<uint32_t>(1))) / 32] & ((static_cast<uint32_t>(1)) << ((counter_ - (static_cast<uint32_t>(1))) % 32)));
+  auto elem = static_cast<bool>(data_[(counter_ - (static_cast<uint32_t>(1))) / 32] & ((static_cast<uint32_t>(1)) << ((counter_ - (static_cast<uint32_t>(1))) % 32)));
+  return elem;
 }
 
 void Stack<bool>::pop() {
@@ -48,7 +49,7 @@ void Stack<bool>::pop() {
     exit(1);
   }
 
-  counter_--;
+  --counter_;
 }
 
 void Stack<bool>::push(bool rhs) {
@@ -59,14 +60,8 @@ void Stack<bool>::push(bool rhs) {
   auto num_of_bit = static_cast<uint32_t>(counter_ % 32);
   auto num_of_byte = static_cast<uint32_t>(counter_ / 32);
 
-  if (rhs) {
-    data_[num_of_byte] = ((static_cast<uint32_t>(1)) << num_of_bit);
-  } else if (!rhs) {
-    data_[num_of_byte] &= ~((static_cast<uint32_t>(1)) << num_of_bit);
-  }
-
-//  data_[num_of_byte] &= static_cast<uint32_t>(~(1 << (num_of_bit)));
-//  data_[num_of_byte] ^= static_cast<uint32_t>(static_cast<uint32_t>(rhs) << (num_of_bit));
+  data_[num_of_byte] &= static_cast<uint32_t>(~(1 << (num_of_bit)));
+  data_[num_of_byte] ^= static_cast<uint32_t>(static_cast<uint32_t>(rhs) << (num_of_bit));
 
   counter_++;
 }

@@ -6,6 +6,34 @@
 #include "../includes/Stack.h"
 #include "../includes/Stack_impl.h"
 
+TEST(StackTest, PushandPop) {
+  Stack<uint32_t> s1;
+
+  for (int i = 0; i <= 1e6; ++i) {
+    s1.push(static_cast<uint32_t>(i));
+    ASSERT_EQ(s1.top(), i);
+  }
+
+  for (int i = 1e6; i > 0; --i) {
+    s1.pop();
+    ASSERT_EQ(s1.top(), i - 1);
+  }
+}
+
+TEST(StackTest, BPushandPop) {
+  Stack<bool> s1;
+  for(int i = 0; i < 1e6; ++i) {
+    s1.push(true);
+    ASSERT_EQ(s1.top(), true);
+    s1.push(false);
+    ASSERT_EQ(s1.top(), false);
+    s1.push(true);
+    ASSERT_EQ(s1.top(), true);
+    s1.push(false);
+    ASSERT_EQ(s1.top(), false);
+  }
+}
+
 TEST(StackTest, Top) {
   Stack<uint32_t> s1;
 
@@ -85,9 +113,9 @@ TEST(StackTest, Btop) {
     s1.push(item);
   }
 
-  v1.clear();
-
   ASSERT_EQ(s1.top(), false);
+
+  v1.clear();
 }
 
 TEST(StackTest, Bsize) {

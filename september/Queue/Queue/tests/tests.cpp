@@ -82,7 +82,6 @@ TEST(Queue, MoveConstruct) {
 
 TEST(Queue, EqOperator) {
   Queue<int> q1;
-//  Queue<int> q2;
 
   for (int i = 0; i < numTests; ++i) {
     q1.push(i);
